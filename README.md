@@ -5,7 +5,7 @@ This repo contains an API to share links between friends. All shared links are i
 ## Install
 Clone this repo and compile it. When complete, execute:
 ```sh
-./feed-reader-server -dev
+./share-link-server -dev
 ```
 This start the server in **debug** mode. To start it in release mode, start it without the *-dev* option.
 
