@@ -15,10 +15,8 @@ type Feed struct {
 
 // Model for each feed
 type Model struct {
-	ID        uint       `gorm:"primary_key" json:"id"`
-	CreatedAt time.Time  `json:"created_at"`
-	UpdatedAt time.Time  `json:"updated_at"`
-	DeletedAt *time.Time `json:"deleted_at"`
+	ID        uint      `gorm:"primary_key" json:"id"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 // Feeds is a set of feeds
@@ -33,13 +31,6 @@ type FeedHandler struct {
 func (f *FeedHandler) GetAll(c *gin.Context) {
 	var feeds Feeds
 	f.database.db.Find(&feeds)
-	if len(feeds) == 0 {
-		c.JSON(404, gin.H{
-			"status":  404,
-			"message": "Feeds not found",
-		})
-		return
-	}
 	c.JSON(200, gin.H{
 		"feeds": feeds,
 	})
