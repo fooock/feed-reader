@@ -35,13 +35,14 @@ func Create(opts Options) (*Server, error) {
 		database: database,
 	}
 	// feed endpoints
-	feedEndpoints(router, database)
+	feedEndpoints(server)
 
 	return server, nil
 }
 
 // Start the server with the given options
 func (s *Server) Start() {
+	s.database.Start()
 	s.router.Run(fmt.Sprintf("%v:%v", s.options.host, s.options.port))
 }
 
@@ -51,10 +52,10 @@ func (s *Server) Close() {
 }
 
 // feedEndpoints register all feed endpoints with the given engine
-func feedEndpoints(e *gin.Engine, d *Database) {
-	feedHandler := &FeedHandler{database: d}
+func feedEndpoints(s *Server) {
+	feedHandler := &FeedHandler{database: s.database}
 	for _, route := range FeedRoutes {
-		group := e.Group(apiV1)
+		group := s.router.Group(apiV1)
 
 		// register get
 		if route.method == "GET" {
