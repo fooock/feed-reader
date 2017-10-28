@@ -18,3 +18,8 @@ func GetAll(c *gin.Context) {
 func Delete(c *gin.Context) {
 
 }
+
+// Submit create a new feed
+func Submit(c *gin.Context) {
+
+}

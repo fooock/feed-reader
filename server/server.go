@@ -37,5 +37,9 @@ func feedEndpoints(e *gin.Engine) {
 		if route.method == "DELETE" {
 			group.DELETE(route.pattern, route.handler)
 		}
+		// submit new feed
+		if route.method == "POST" {
+			group.POST(route.pattern, route.handler)
+		}
 	}
 }

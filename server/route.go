@@ -29,4 +29,10 @@ var FeedRoutes = Routes{
 		pattern: "/feed/:id",
 		handler: Delete,
 	},
+	Route{
+		name:    "Create a new feed",
+		method:  "POST",
+		pattern: "/feed",
+		handler: Submit,
+	},
 }
