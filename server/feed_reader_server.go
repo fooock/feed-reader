@@ -15,8 +15,9 @@ const (
 
 // Options to start the server
 type Options struct {
-	port string
-	host string
+	port         string
+	host         string
+	databaseFile string
 }
 
 func main() {
@@ -28,6 +29,8 @@ func main() {
 
 	// start in debug mode?
 	debug := flag.Bool("dev", false, "Use this flag to start the server in debug mode")
+	// database file
+	databaseFile := flag.String("d", "/tmp/feed-server.db", "Sqlite database file")
 	flag.Parse()
 
 	log.Printf("Start server in %s:%s\n", *host, *port)
@@ -36,9 +39,18 @@ func main() {
 	if !*debug {
 		gin.SetMode(gin.ReleaseMode)
 	}
-
-	options := &Options{port: *port, host: *host}
+	options := &Options{
+		port:         *port,
+		host:         *host,
+		databaseFile: *databaseFile,
+	}
 	// create and start the server instance
-	server := Create()
-	server.Start(*options)
+	server, err := Create(*options)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	server.Start()
+
+	// release
+	defer server.Close()
 }

@@ -9,17 +9,22 @@ type Feed struct {
 	name string
 }
 
+// FeedHandler is the struct to call all feed handlers
+type FeedHandler struct {
+	database *Database
+}
+
 // GetAll is the function to retrieve all feeds
-func GetAll(c *gin.Context) {
+func (f *FeedHandler) GetAll(c *gin.Context) {
 
 }
 
 // Delete the given feed
-func Delete(c *gin.Context) {
+func (f *FeedHandler) Delete(c *gin.Context) {
 
 }
 
 // Submit create a new feed
-func Submit(c *gin.Context) {
+func (f *FeedHandler) Submit(c *gin.Context) {
 
 }
