@@ -23,6 +23,7 @@ func (f *FeedParser) Parse() (string, error) {
 			Link:        &feeds.Link{Href: value.Name},
 			Description: value.Author,
 			Created:     value.CreatedAt,
+			Author:      value.Author,
 		}
 		items = append(items, item)
 	}
