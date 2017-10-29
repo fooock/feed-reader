@@ -11,7 +11,7 @@ type FeedParser struct {
 // Parse all feeds and convert it to a know format like RSS
 func (f *FeedParser) Parse() (string, error) {
 	feed := &feeds.Feed{
-		Title:       "OSPG links",
+		Title:       "OSPG shared links",
 		Link:        &feeds.Link{Href: f.link},
 		Description: "Interesting links about tech, hacking and more!",
 		Author:      &feeds.Author{Name: "Multiple authors"},
