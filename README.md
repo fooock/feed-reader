@@ -16,18 +16,24 @@ You can apply two optional options:
 
 ## Endpoints
 All endpoints use the `api/v1` prefix. Two endpoints are implemented:
-* **GET** `/feeds`: Return a set of feeds like:
-```sh
-{
-    "feeds": [
-        {
-            "id": 1,
-            "created_at": "2017-10-28T23:58:19.2208395+02:00",
-            "name": "https://beginners.re/",
-            "author": "newhouse"
-        }
-    ]
-}
+* **GET** `/feeds`: Return a set of feeds in RSS format like:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>OSPG links</title>
+        <link>0.0.0.0:8080</link>
+        <description>Interesting links about tech, hacking and more!</description>
+        <managingEditor> (Multiple authors)</managingEditor>
+        <pubDate>Sun, 29 Oct 2017 12:37:48 +0100</pubDate>
+        <item>
+            <title>https://beginners.re/</title>
+            <link>https://beginners.re/</link>
+            <description>newhouse</description>
+            <pubDate>Sat, 28 Oct 2017 23:58:19 +0200</pubDate>
+        </item>
+    </channel>
+</rss>
 ```
 * **POST** `/feed`: Submit a new feed. The body is in `x-www-form-urlencoded`. An example:
 ```
