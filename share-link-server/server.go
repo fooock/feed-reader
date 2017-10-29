@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 )
@@ -43,7 +41,7 @@ func Create(opts Options) (*Server, error) {
 // Start the server with the given options
 func (s *Server) Start() {
 	s.database.Start()
-	s.router.Run(fmt.Sprintf("%v:%v", s.options.host, s.options.port))
+	s.router.Run(s.options.URL())
 }
 
 // Close the server connection and all of its resources
@@ -53,8 +51,10 @@ func (s *Server) Close() {
 
 // feedEndpoints register all feed endpoints with the given engine
 func feedEndpoints(s *Server) {
-	feedURL := fmt.Sprintf("%v:%v", s.options.host, s.options.port)
-	feedHandler := &FeedHandler{database: s.database, feedURL: feedURL}
+	feedHandler := &FeedHandler{
+		database: s.database,
+		feedURL:  s.options.URL(),
+	}
 	for _, route := range FeedRoutes {
 		group := s.router.Group(apiV1)
 

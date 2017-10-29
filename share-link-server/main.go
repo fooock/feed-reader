@@ -20,6 +20,11 @@ type Options struct {
 	databaseFile string
 }
 
+// URL convert the host and port to a valid url known by the server
+func (o *Options) URL() string {
+	return fmt.Sprintf("%v:%v", o.host, o.port)
+}
+
 func main() {
 	fmt.Println(header)
 
