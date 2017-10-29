@@ -25,15 +25,28 @@ type Feeds []Feed
 // FeedHandler is the struct to call all feed handlers
 type FeedHandler struct {
 	database *Database
+	feedURL  string
 }
 
 // GetAll is the function to retrieve all feeds
 func (f *FeedHandler) GetAll(c *gin.Context) {
 	var feeds Feeds
 	f.database.db.Find(&feeds)
-	c.JSON(200, gin.H{
-		"feeds": feeds,
-	})
+	// parse feeds
+	parser := &FeedParser{
+		feeds: feeds,
+		link:  f.feedURL,
+	}
+	rss, err := parser.Parse()
+	if err != nil {
+		c.JSON(400, gin.H{
+			"status":  400,
+			"message": "Error parsing feeds",
+		})
+		return
+	}
+	// return the content in rss format
+	c.String(200, rss)
 }
 
 // Delete the given feed

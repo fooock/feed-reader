@@ -53,7 +53,8 @@ func (s *Server) Close() {
 
 // feedEndpoints register all feed endpoints with the given engine
 func feedEndpoints(s *Server) {
-	feedHandler := &FeedHandler{database: s.database}
+	feedURL := fmt.Sprintf("%v:%v", s.options.host, s.options.port)
+	feedHandler := &FeedHandler{database: s.database, feedURL: feedURL}
 	for _, route := range FeedRoutes {
 		group := s.router.Group(apiV1)
 
