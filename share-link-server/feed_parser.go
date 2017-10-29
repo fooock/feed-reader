@@ -1,7 +1,6 @@
 package main
 
 import "github.com/gorilla/feeds"
-import "time"
 
 // FeedParser convert the feeds to RSS format
 type FeedParser struct {
@@ -16,7 +15,6 @@ func (f *FeedParser) Parse() (string, error) {
 		Link:        &feeds.Link{Href: f.link},
 		Description: "Interesting links about tech, hacking and more!",
 		Author:      &feeds.Author{Name: "Multiple authors"},
-		Created:     time.Now(),
 	}
 	var items []*feeds.Item
 	for _, value := range f.feeds {
