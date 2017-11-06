@@ -43,6 +43,19 @@ curl -X POST \
   -d 'author=newhouse&feed=https%3A%2F%2Fbeginners.re%2F'
 ```
 
+## Integrations
+
+* **Newsbeuter**
+Newsbeuter config file
+```
+macro y set browser "curl -X POST http://localhost:8080/api/v1/feed -H 'content-type: application/x-www-form-urlencoded' -d 'author=newhouse&feed=%u'"; open-in-browser ; set browser "$BROWSER %u"
+```
+
+Newsbeuter urls file
+```
+http://localhost:8080/api/v1/feeds
+```
+
 ## License
 ```
 Copyright 2017 newhouse (nhitbh at gmail dot com)
